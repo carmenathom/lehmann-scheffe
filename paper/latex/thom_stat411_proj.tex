@@ -1,0 +1,179 @@
+\documentclass{article}
+
+%%% Package List
+\usepackage{multicol}
+\usepackage{changepage}
+\usepackage{tcolorbox} 
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{yhmath}
+\usepackage{amssymb}
+\usepackage{cleveref}
+\usepackage[margin=1in]{geometry}
+
+\let\oldint\int
+\renewcommand{\int}{\oldint\limits}
+\let\oldsum\sum
+\renewcommand{\sum}{\oldsum\limits}
+\let\oldlim\lim
+\renewcommand{\lim}{\oldlim\limits}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\let\oldprod\prod
+\renewcommand{\prod}{\oldprod\limits}
+
+\everymath{\displaystyle}
+
+\title{\textbf{Project 1}}
+\author{STAT 411: Statistical Theory}
+\date{\today}
+
+
+\newcommand*{\titleGM}{\begingroup 
+\hbox{ 
+\hspace*{0.2\textwidth} 
+\rule{1pt}{\textheight} 
+\hspace*{0.05\textwidth} 
+\parbox[b]{0.75\textwidth}{ 
+{\noindent\Huge\bfseries The Lehmann–Scheffé \\[0.25\baselineskip] Theorem in Statistical\\[0.25\baselineskip] Theory:\\[0.5\baselineskip]Origin, Framework, and\\[0.25\baselineskip] Modern Relevance\\}\\[2\baselineskip] 
+\\~\\~\\~\\
+{\large \textsc{ Carmen A. Thom }} 
+
+\vspace{0.5\textheight} 
+{\noindent University of Illinois at Chicago \\ Department of Mathematics, Statistics, and Computer Science }\\[\baselineskip] 
+}}
+\endgroup}
+\makeatletter 
+\renewcommand{\maketitle}
+{ \begingroup \vskip 10pt \begin{center} \Huge {\bf \@title}
+\vskip 10pt \large \@author \hskip 20pt \@date \end{center}
+\vskip 10pt \endgroup \setcounter{footnote}{0} }
+\makeatother
+
+\begin{document}	
+\titleGM
+
+\newpage
+\begin{center}
+\begin{LARGE}
+\bfseries The Lehmann-Scheffé Theorem in Statistical Theory:\\ Origin, Framework, and Modern Relevance
+\end{LARGE}
+\end{center}
+\vspace*{5em}
+\doublespacing
+
+\noindent \textbf{Abstract:}
+\begin{adjustwidth}{2.5em}{0pt}
+When trying to determine unknown values from data, statisticians use estimators. Not all estimators however are equally useful. Statisticians often prefer estimators that are accurate on average and that have the maximum confidence that a point estimate is close to the true value. The uniformly minimum-variance unbiased estimator (UMVUE) satisfies these conditions and is considered a "best" estimator, but it is not always easy to identify. The Lehmann-Scheff{\'e} theorem defines conditions that guarantee that a unique estimator with those qualities exists. This paper discusses the framework of the Lehmann-Scheff{\'e} theorem, the conditions that it requires, a historical background on its development, applications, and its modern relevance.
+\end{adjustwidth}
+\newpage
+\section{Framework}
+\begin{multicols}{2}
+\indent When looking at various estimators for parameters, there are many measures of quality to assess each estimator. One of the most common measures of quality that statisticians use is \textit{unbiasedness}, meaning that the expected value of the estimator is the true parameter value. However, unbiasedness is only one characteristic of an estimator that is of importance. One quality that statisticians also look to assess is the \textit{variance} of the estimator. An unbiased estimator with lower variance gives more confidence that a point estimate is close to the true value than one with a higher variance. Naturally, this leads to the conclusion that a "best" unbiased estimate would be the one with the lowest variance across all possible parameter values. Statisticians have given a name to this "best" unbiased estimator, the Uniformly minimum-variance estimator (UMVUE).
+\columnbreak
+
+\includegraphics[scale=0.2]{plot.png}
+
+\end{multicols}
+The UMVUE, while often being the best estimator, has a few limitations. It doesn't always exist for a parameter, and when it does exist, finding it can be difficult. One tool to find the UMVUE when it exists is the \textit{Lehmann-Scheffé theorem}. This theorem is a refinement of the Rao–Blackwell theorem, identifying conditions that make the produced estimator uniquely optimal.\\
+
+\indent The Lehmann-Scheffé theorem states that if an estimator is unbiased and only depends on data by a complete sufficient statistic then it is the unique best estimator. To fully understand the this theorem, one must first understand sufficiency and completeness. Sufficiency is a property of a statistic which means that the statistic contains all of the information about the model parameters that the dataset provides. Put more formally, it means the joint-conditional probability distribution of the data $X_1,...,X_n$, given the statistic $Y = u(X_1,...,X_n)$, does not depend on the parameter $\theta$. Intuitively, this means that once you have sufficient statistic $Y$, the rest of the data becomes irrelevant for estimating $\theta$.\newpage
+
+\indent Completeness is a property of a statistic meaning it contains only information about some parameter $\theta$. This is opposed with ancillary statistics, which contain no information relevant to the parameter. Put more formally, for statistic $Y$ to be complete, if $\mathbb{E}_\theta(g(Y)) = 0$ for all values of $\theta$, then $\mathbb{P}_\theta(g(Y)=0)=1$. This concept leads to complete families of distributions, $\{f_Y(y;\theta) \mid \theta\in \Omega\}$. Completeness ensures that there are no two distinct unbiased functions of the statistic with the same expectation, which guarantees uniqueness of the estimator.\\
+
+Sufficiency reduces data without loss of information, while completeness ensures uniqueness. Combining these two qualities gives us complete-sufficient statistics, which are minimally sufficient. The Lehmann-Scheffé theorem states that if an estimator is a function of a complete-sufficient statistic, and is unbiased, then it is the unique uniformly unbiased minimum variance estimator.\\
+
+\noindent \textbf{Definition: Lehmann-Scheffé theorem}
+\begin{adjustwidth}{2.5em}{0pt}
+Let $X_1,...,X_n \overset{\text{iid}}{\sim}f(x;\theta),\ \theta\in \Omega$,\\
+\hspace*{2em}$Y=U(X_1,...,X_n)$ be a sufficient statistic for $\theta$,\\
+\hspace*{2em}the family $\{f_Y(y;\theta) \mid \theta\in \Omega\}$ be complete.\\
+If there is a function of the statistic Y that is an unbiased estimator of $\theta$, that is, $\mathbb{E}_\theta(g(Y))=\theta$,\\
+then $g(Y)$ is the unique UMVUE of $\theta$.\\
+\end{adjustwidth}
+
+\noindent \textbf{Proof: Lehmann-Scheffé theorem}
+\begin{adjustwidth}{2.5em}{0pt}
+The Rao-Blackwell theorem states that for sufficient statistic $Y$ and unbiased estimator $Z$, \\then $\mathbb{E}_\theta(Z\mid Y)$ is an unbiased estimator such that $\text{Var}(\mathbb{E}_\theta(Z\mid Y)) \leq \text{Var}(Z)$.\\
+As the family $\{f_Y(y;\theta) \mid \theta\in \Omega\}$ is complete,\\
+$\mathbb{E}_\theta(Z\mid Y) = g(Y)$.\\
+Then $\mathbb{E}_\theta(g(Y)-\varphi(Y)) = 0$.\\
+From completeness, $g(Y)-\varphi(Y)=0$,\\
+thus $g(Y)=\varphi(Y)$.\\
+Therefore $\text{Var}(\varphi(Y))\leq \text{Var}(Z)$. $\blacksquare$\\
+\end{adjustwidth}
+
+For example, for sample $X_1,...,X_n$ taken from a Bernoulli distribution, the sample mean $\bar{X}$ is a complete and sufficient statistic for its parameter $p$. Since $\bar{X}$ is unbiased for $p$, by the Lehmann–Scheffé theorem, it is the unique UMVUE of $p$. \\
+
+However, UMVUEs do not exist for every model. For example, no unbiased estimator exists for some parameters, so a UMVUE cannot exist. In addition, even when unbiased estimators exist, there is not always a single estimator whose variance is minimal for all parameter values. For example, this occurs in curved exponential families. The Lehmann–Scheffé provides a complete set of sufficient conditions guaranteeing existence and uniqueness, even though these conditions are not always satisfied.\\
+\newpage
+\section{Historical Origin}
+\indent\indent The late 18th and 19th century saw the development of many statistical concepts. Specifically the early origin of parameters and estimators began through the work of Laplace and Gauss.  It wasn't however until the early 1900s that "estimator" and "parameter" became formally defined through the work of Fisher. In his work "On the mathematical foundations of theoretical statistics", Fisher not only formally defined "estimator" and "parameter", but he also formally defined unbiasedness, and sufficiency \cite{1922}.\\
+
+In the 1930s and 1940s, many more developments in parameter estimation were made. Statisticians were still looking to find the "best" unbiased estimators, and still had a limited understanding of when an estimator is unique. One powerful theorem was the Rao-Blackwell theorem, which proved you can improve any estimator by conditioning it on a sufficient statistic. \cite{Blackwell1947-in}\cite{Radhakrishna_Rao2021-af}. However, conditioning it on a sufficient statistic doesn't guarantee uniqueness and didn't confirm that it was the "best". \\
+
+The Lehmann-Scheffé theorem comes from the work of statisticians Erich Leo Lehmann and Henry Scheffé. They both knew of each other from their studies, but came to know each other after meeting at Berkly. "The first time I met Henry Scheffé was in 1946 when he spent a year in Berkeley ... Our statistical conversations led us to discuss a unifying concept that tied together many different situations we had been considering, which we called completeness. ... Eventually, we gave a comprehensive account in two long papers in 1950 and 1955"\cite{Lehmann2008-az}. \\
+
+Both statisticians were studying this problem of "best" parameter estimation, specifically looking at certain exponential families. They found that conditioning on a sufficient statistic in certain exponential families would yield a unique, minimum variance estimator. However, they didn't have a complete understanding of why, which led them to defining completeness. A sufficient statistic is complete if an expectation of an arbitrary function of it being equal to zero implies that the function is zero almost surely. This condition is what was needed for uniqueness, as it prevents the existence of different estimators that both have minimum variance. This led to the Lehmann-Scheff{\'e} theorem, as it was found that if you have a complete sufficient statistic, than conditioning on it by the Rao-Blackwell theorem yields a unique unbiased estimator with the minimum variance among all unbiased estimators \cite{Lehmann2012-ex}.\\
+
+\newpage 
+\section{Applications and Modern Relevance}
+\indent \indent The primary application the Lehmann-Scheff{\'e} theorem, as discussed, is finding the UMVUE of a parameter. To see this in practice, consider observations from an exponential population. We will identify a complete, sufficient statistic and then apply Lehmann–Scheffé to obtain the UMVUE.\\
+
+\begin{adjustwidth}{2.5em}{0pt}
+Lets take $n$ random samples from a exponential population.\\
+Looking at the joint distribution, we have $\prod_{i=1}^n \frac{e^{-\frac{x_i}{\theta}}}{\theta} = \frac{1}{\theta^{n}}e^{-\frac{1}{\theta}\sum_{i=1}^{n}x_i}$.\\
+By factorization theorem, $Y= \sum_{i=1}^nx_i$ is a sufficient statistic for $\theta$.\\
+By definition, $Y \overset{\text{iid}}{\sim} \text{Gamma}(n,\theta)$.\\
+For $Y$ to be a complete statistic, we need
+$0=\int_{0}^\infty u(y)\cdot\frac{1}{\Gamma(n)\theta^n}y^{n-1}e^{-\frac{y}{\theta}}dy$ for any function $u(y).$\\
+By letting $s=\frac{1}{\theta}$, we get $0=\frac{s^n}{\Gamma (n)}\int_0^\infty e^{-sy}\cdot u(y)\cdot y^{n-1} dy$\\
+This is equivalent to $0=\mathcal{L}(u(y)y^{n-1}) \ \ \ \footnote{See appendix B}$\\
+$\mathcal{L}(u(y)y^{n-1}) = 0$ implies that $u(y)y^{n-1} = 0$\\
+As $y^{n-1}>0$ for all $y>0$,  $u(y)$ is equal to zero almost surely for all $y\geq 0$\\
+Thus $Y$ is a complete sufficient statistic.\\
+$\mathbb{E}(Y)= n\theta$, thus $\mathbb{E}(n^{-1}Y) = \theta$\\
+Thus $n^{-1}\sum_{i=1}^n x_i$ is an unbiased function of a complete statistic.\\
+Then, by the Lehmann-Scheff{\'e} theorem, $\bar{x}$ is the UMVUE of $\theta$\\
+\end{adjustwidth}
+\indent \indent New developments have come in this style of parameter estimation that no longer rely on completeness. Tal Galili and Isaac Meilijson in their 2016 paper "" showed an example of a non-complete statistic being improved beyond the normal Rao–Blackwell procedure \cite{Galili2016-zz}. Unbiased generalized Bayes estimators can outperform both the maximum likelihood estimator and its Rao–Blackwell improvement. \\
+\newpage
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{mybib}
+\newpage
+\appendix
+\section*{Appendix A: R Code}
+\label{appendix:a}
+\noindent \textbf{Variance Plot}
+\begin{verbatim}
+par(mfrow=c(2,1), family = "serif")  
+
+curve(dnorm(x, mean = 0, sd = 0.25), main = "High Variance Estimator",
+      from = -4, to = 4, xaxt = "n", ylab = "Likelihood")
+theta <- 0
+abline(v = theta, col = "red", lty = 2, lwd = 2, ylab = "Likelihood")
+mtext(expression(theta),side = 1, at = theta, line = 2, col = "red")
+
+curve(dnorm(x, mean = 0, sd = 2), main = "Low Variance Estimator", 
+      from = -4, to = 4, xaxt = "n", ylab = "Likelihood")
+theta <- 0
+abline(v = theta, col = "blue", lty = 2, lwd = 2)
+mtext(expression(theta), side = 1, at = theta, line = 2, col = "blue")
+
+\end{verbatim}
+\newpage
+\section*{Appendix B: Laplace Transformation}
+\label{appendix:b}
+Given a function $f(t),\ t\geq 0$\\
+$$F(s) = \mathcal{L}(f(t)) = \int_0^\infty e^{-st}f(t)\ dt, \ s>0 $$
+The inverse transform of $F(s)$\\
+$$f(t)=\mathcal{L}^{-1}(F(s))=\frac{1}{2\pi i}\int_{\gamma+i\infty}^{\gamma-i\infty}e^{st}\Gamma(s)\ ds$$
+
+\noindent Properties of $\mathcal{L}$:
+\begin{enumerate}
+\item If $F(s)=\int_0^\infty e^{-st}f(t)\ dt = 0$ for all $s>0$, then $f(t)= $ for all $t\geq 0$
+\item $\mathcal{L}(a\cdot f(t)+b\cdot g(t)) = a\cdot \mathcal{L}(f(t)) + b\cdot \mathcal{L}(g(t))$
+\item $\mathcal{L}((f\cdot g)(t)) = \mathcal{L}(f(t))\cdot \mathcal{L}(g(t))$
+\item $\mathcal{L}(\int_0^t f(\tau)\ d\tau) = \frac{1}{s}\mathcal{L}(f(s))$
+\end{enumerate}
+\end{document}
